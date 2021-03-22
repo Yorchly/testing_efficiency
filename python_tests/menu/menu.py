@@ -1,5 +1,6 @@
 import logging
 from .menu_option import MenuOption
+from ..common.common import check_args_passed
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__file__)
@@ -59,8 +60,9 @@ class Menu:
         func = self._options[option].option_func
         func_kwargs = self._options[option].option_func_kwargs
 
-        # TODO -> Checking over func params.
         if func_kwargs is not None:
+            if not check_args_passed(func, **func_kwargs):
+                return
             func(**func_kwargs)
         else:
             func()

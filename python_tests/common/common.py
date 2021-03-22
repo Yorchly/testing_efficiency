@@ -1,11 +1,12 @@
 import time
-from inspect import signature
 import logging
+from inspect import signature
+from typing import Callable
 
 logger = logging.getLogger(__file__)
 
 
-def check_args_passed(func: any, **func_args: any) -> bool:
+def check_args_passed(func: Callable, **func_args: dict) -> bool:
     """
     Check args passed to execution_time
     """
@@ -29,17 +30,17 @@ def check_args_passed(func: any, **func_args: any) -> bool:
     return True
 
 
-def execution_time(func: any, **func_args: any) -> tuple:
+def execution_time(func: Callable, **func_args: dict) -> tuple:
     """
-    Generic function which will calculate the executionn time of function passed as
+    Generic function which will calculate the execution time of function passed as
     argument.
     :param func: function which will be tested.
-    :param **func_args: args to be passed to function.
+    :type func: Callable
+    :param func_args: args to be passed to function.
+    :type func_args: dict
     :return tuple: (execution_time, element). Second element is optional, if func passed dont return an element, 
     None will be inserted in tuple.
     """
-    element = None
-
     if not check_args_passed(func, **func_args):
         return ()
 
@@ -47,4 +48,4 @@ def execution_time(func: any, **func_args: any) -> tuple:
     element = func(**func_args)
     end = time.time()
 
-    return ((end - begin), element)
+    return (end - begin), element

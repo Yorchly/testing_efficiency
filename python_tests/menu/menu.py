@@ -45,24 +45,25 @@ class Menu:
 
         print(f"{last_option_number}. Exit")
         print("#" * 28, "\n")
+
         try:
             option = int(input("Write an option: "))
         except ValueError:
             logger.error("Error with explicit conversion of option introduced, exiting...")
             return
 
-        try:
-            func = self._options[option].option_func
-            func_kwargs = self._options[option].option_func_kwargs
-
-            # TODO -> Checking over func params.
-            if func_kwargs is not None:
-                func(**func_kwargs)
-            else:
-                func()
-        except IndexError:
+        if option >= len(self._options) or option < 0:
             print("Exiting!")
             return
+
+        func = self._options[option].option_func
+        func_kwargs = self._options[option].option_func_kwargs
+
+        # TODO -> Checking over func params.
+        if func_kwargs is not None:
+            func(**func_kwargs)
+        else:
+            func()
 
     @staticmethod
     def _formatting_options_name(options_name: str) -> str:

@@ -37,12 +37,17 @@ class Menu:
             logging.error("You must use adding_options method first!")
             return
 
+        last_option_number = -1
+
         print("")
         print("#"*10, " MENU ", "#"*10)
 
         for option in self._options:
-            print(f"{self._options.index(option)}. {option.option_name}")
-        
+            option_index = self._options.index(option)
+            print(f"{option_index}. {option.option_name}")
+            last_option_number = option_index + 1
+
+        print(f"{last_option_number}. Exit")
         print("#"*28, "\n")
         try:
             option = int(input("Write an option: "))
@@ -60,5 +65,5 @@ class Menu:
             else:
                 func()
         except IndexError:
-            logger.error("Option introduced is not valid, exiting.")
+            print("Exiting!")
             return

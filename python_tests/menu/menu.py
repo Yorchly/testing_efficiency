@@ -61,9 +61,8 @@ class Menu:
         func_kwargs = self._options[option].option_func_kwargs
 
         if func_kwargs is not None:
-            if not check_args_passed(func, **func_kwargs):
-                return
-            func(**func_kwargs)
+            if check_args_passed(func, **func_kwargs):
+                func(**func_kwargs)
         else:
             func()
 

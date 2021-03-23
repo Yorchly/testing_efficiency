@@ -8,7 +8,7 @@ logger = logging.getLogger(__file__)
 
 def check_args_passed(func: Callable, **func_args: dict) -> bool:
     """
-    Check args passed to execution_time
+    Check args passed to function
     """
     if not callable(func):
         logger.error("Func passed as argument is not callable")
